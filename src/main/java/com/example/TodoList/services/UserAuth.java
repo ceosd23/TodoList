@@ -3,8 +3,9 @@ package com.example.TodoList.services;
 import com.example.TodoList.dtos.LoginRequest;
 import com.example.TodoList.dtos.RefreshTokenRequest;
 import com.example.TodoList.dtos.RegisterRequest;
+import com.example.TodoList.exceptions.TodoListException;
 import com.example.TodoList.models.NotificationEmail;
-import com.example.TodoList.models.User;
+import com.example.TodoList.models.Users;
 import com.example.TodoList.models.VerificationToken;
 import com.example.TodoList.repositories.UserRepository;
 import com.example.TodoList.repositories.VerificationTokenRepository;
@@ -35,14 +36,14 @@ public class UserAuth {
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
     @Transactional
-    public String signup(RegisterRequest registerRequest) throws Exception {
-//        if(userRepository.findByUsername(registerRequest.getUsername()).isPresent()) {
-//            return "UserName already Present";
-//        }
-//        if(userRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
-//            return "Email already Used by another user";
-//        }
-        User user= new User();
+    public String signup(RegisterRequest registerRequest){
+        if(userRepository.findByUsername(registerRequest.getUsername()).isPresent()) {
+            return "UserName already Present";
+        }
+        if(userRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
+            return "Email already Used by another user";
+        }
+        Users user= new Users();
         user.setUsername(registerRequest.getUsername());
         System.out.println(registerRequest.getUsername());
         user.setEmail(registerRequest.getEmail());
@@ -53,10 +54,10 @@ public class UserAuth {
         userRepository.save(user);
         String token= generateVerificationToken(user);
         mailService.sendMail(new NotificationEmail("Welcome To ToDoList ",user.getEmail()," Verify Your Account " +
-                "http://localhost:8080/api/auth/accountVerification/"+token+" "));
+                "http://localhost:8080/api/v1/auth/accountVerification/"+token+" "));
         return "Registration Successful";
     }
-    private String generateVerificationToken(User user)
+    private String generateVerificationToken(Users user)
     {
         String token= UUID.randomUUID().toString();
         VerificationToken verificationToken=new VerificationToken();
@@ -66,16 +67,16 @@ public class UserAuth {
         return token;
     }
     @Transactional
-    public void verifyAccount(String token) throws Exception {
+    public void verifyAccount(String token) {
         Optional<VerificationToken> verificationToken= verificationTokenRepository.findByToken(token);
-        verificationToken.orElseThrow(()->new Exception("Invalid Token"));
+        verificationToken.orElseThrow(()->new TodoListException("Invalid Token"));
         fetchUserAndEnable(verificationToken.get().getUser().getUserId());
         verificationTokenRepository.deleteById(verificationToken.get().getId());
 
     }
     @Transactional
-    public void fetchUserAndEnable(Long id) throws Exception {
-        User user = userRepository.findById(id).orElseThrow(() -> new Exception("User Not Found Sorry SingUp Again"));
+    public void fetchUserAndEnable(Long id)  {
+        Users user = userRepository.findById(id).orElseThrow(() -> new TodoListException("User Not Found Sorry SingUp Again"));
         user.setEnabled(true);
         userRepository.save(user);
     }
@@ -109,13 +110,13 @@ public class UserAuth {
         }
     }
     @Transactional(readOnly = true)
-    public User getCurrentUser() {
+    public Users getCurrentUser() {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.
                 getContext().getAuthentication().getPrincipal();
         return userRepository.findByUsername(principal.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + principal.getUsername()));
     }
-    public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) throws Exception {
+    public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
         refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
         String token=jwtProvider.generateTokenWithUsername(refreshTokenRequest.getUsername());
         return AuthenticationResponse.builder()

@@ -37,6 +37,6 @@ public class ToDoList
     private List<ToDo> todos;
 
     @ManyToOne(fetch=LAZY)
-    private User user;
+    private Users users;
 
 }

@@ -1,5 +1,6 @@
 package com.example.TodoList.services;
 
+import com.example.TodoList.exceptions.TodoListException;
 import com.example.TodoList.models.NotificationEmail;
 import lombok.AllArgsConstructor;
 import org.springframework.mail.MailException;
@@ -17,7 +18,7 @@ public class MailService
     private final MailContentBuilder mailContentBuilder;
 
     @Async
-    public void sendMail(NotificationEmail notificationEmail) throws Exception {
+    public void sendMail(NotificationEmail notificationEmail) {
         MimeMessagePreparator messagePreparator= mimeMessage -> {
             MimeMessageHelper messageHelper=new MimeMessageHelper(mimeMessage);
             messageHelper.setFrom("toDoList@email.com");
@@ -32,7 +33,7 @@ public class MailService
         }
         catch (MailException e)
         {
-            throw new Exception("Mail Couldn't Be Send");
+            throw new TodoListException("Mail Couldn't Be Send");
         }
     }
 }

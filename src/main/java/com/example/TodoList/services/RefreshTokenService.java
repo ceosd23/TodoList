@@ -1,5 +1,6 @@
 package com.example.TodoList.services;
 
+import com.example.TodoList.exceptions.TodoListException;
 import com.example.TodoList.models.RefreshToken;
 import com.example.TodoList.repositories.RefreshTokenRepository;
 import lombok.AllArgsConstructor;
@@ -26,9 +27,9 @@ public class RefreshTokenService
         return refreshToken;
 
     }
-    void validateRefreshToken(String token)throws Exception
+    void validateRefreshToken(String token)
     {
-        refreshTokenRepository.findByToken(token).orElseThrow(() -> new Exception("Invalid"));
+        refreshTokenRepository.findByToken(token).orElseThrow(() -> new TodoListException("Invalid"));
     }
     public void deleteRefreshToken(String token)
     {

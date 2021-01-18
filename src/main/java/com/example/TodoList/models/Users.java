@@ -14,11 +14,11 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="User")
-public class User
+@Table
+public class Users
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy =GenerationType.SEQUENCE)
     @Column(name="userId")
     private Long userId;
     @NotBlank(message="UserName is Required")

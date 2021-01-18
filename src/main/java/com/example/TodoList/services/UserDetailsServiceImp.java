@@ -1,6 +1,6 @@
 package com.example.TodoList.services;
 
-import com.example.TodoList.models.User;
+import com.example.TodoList.models.Users;
 import com.example.TodoList.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,8 +23,8 @@ public class UserDetailsServiceImp implements UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException
     {
-        Optional<User> userOptional=userRepository.findByUsername(userName);
-        User user=userOptional.orElseThrow(()->new UsernameNotFoundException("No Account Present with"+userName));
+        Optional<Users> userOptional=userRepository.findByUsername(userName);
+        Users user=userOptional.orElseThrow(()->new UsernameNotFoundException("No Account Present with"+userName));
         return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),
             user.isEnabled(),true,true,true,getAuthoritites("USER"));
     }

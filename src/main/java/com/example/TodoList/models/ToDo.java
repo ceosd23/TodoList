@@ -35,10 +35,10 @@ public class ToDo
     private Date targetDate;
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
-    private User user;
+    private Users users;
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "listId", referencedColumnName = "listId")
     private ToDoList toDoList;
-
+    private PriorityType priorityType;
 
 }
