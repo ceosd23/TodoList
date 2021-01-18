@@ -36,6 +36,10 @@ public class ToDoListController
     {
         return ResponseEntity.ok(toDoListService.deletebyId(id));
     }
-
+    @PutMapping("/edit/")
+    public ResponseEntity<ToDoList> edit(@RequestBody ToDoList toDoList)
+    {
+        return ResponseEntity.ok(toDoListService.edit(toDoList));
+    }
 
 }

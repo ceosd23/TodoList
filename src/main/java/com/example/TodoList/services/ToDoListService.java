@@ -44,4 +44,12 @@ public class ToDoListService
             toDoListRepository.delete(list);
             return true;
     }
+    @Transactional
+    public ToDoList edit(ToDoList toDoList)
+    {
+        ToDoList oldtoDoList=toDoListRepository.findByListIdAndUsers(toDoList.getListId(),userAuth.getCurrentUser())
+                .orElseThrow(()->new TodoListException("No Such ToDoList"));
+        toDoList.setListId(oldtoDoList.getListId());
+        return toDoList;
+    }
 }
