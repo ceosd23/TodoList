@@ -9,6 +9,7 @@ so that each user has specific control over the todolist
 * For Email Notfication used SMTP service from Mailtrap.io.
 * Three type of Priosity can be set to task URGENT(1) , NORMAL(0), INDEFINATE(-1);
 
+
 ## IDEA
 * User will first sign Up or Sigin from a device
 * If user is new Send a verfication mail
@@ -16,6 +17,11 @@ so that each user has specific control over the todolist
  * For Creating Editing Todo each Request must have the bearer Token.
  * After Certain Time A new Token is sent on expiration of Current Token.
  ![ScreenShot](https://github.com/ceosd23/TodoList/blob/master/ScreenShot1.png)
+ 
+ ## STARTING THE APPLICATION
+ Using IntelliJ application can be run directly using SpringApplication Configuration
+ and the endPoints get hosted in `localhost:8080`
+ Adding to it Swagger-UI endpoint `localhost:8080/swagger-ui.html/` it is helpful for listing all the endpoint with complete defination of the input and output required by the endPoints.
 
 ## Open Endpoints
 
@@ -48,4 +54,17 @@ EndPoints for Viewing and manipulatiing the Todos that the Authencticated User h
 * [Todo  Delete By ID] : `DELETE /api/v1/todos/delete/{id}`
 * [Todo Create]: `POST /api/v1/todos/`
 
+## REQUIREMENTS FOR SPRING
+* Lombok
+*JPA
+* SPring MVC
+*Postgresql Driver
+* Thymeleaf
+* Spring Security
+
+## Still Need Planning
+* Using SSO in place of JWT for authenctication.
+* Using Messaging Queue that can send user personalize email for task left for particular day.
+* Using InMemory database for authentication
+* Optimising Query and Database for faster Retrieval.
 
