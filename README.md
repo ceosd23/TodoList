@@ -13,8 +13,10 @@ so that each user has specific control over the todolist
 
 Open endpoints require no Authentication.
 
-* [Login](login.md) : `POST /api/v1/auth`
-
+* [SignUp] : `POST /api/v1/auth/signup`
+* [Verfication]: `GET /api/v1/auth/accountVerification/{token}`
+* [LogIn]: `POST /api/v1/auth/login`
+* [LogOut]: `POST /api/v1/auth/logout`
 ## Endpoints that require Authentication
 
 Closed endpoints require a valid Token to be included in the header of the
@@ -22,8 +24,11 @@ request. A Token can be acquired from the Login view above.
 ###ToDo
 EndPoints for Viewing and manipulatiing the Todos that the Authencticated User has permission to access.
 
-* [Todo info] : `GET /api/v1//`
-* [Update info](user/put.md) : `PUT /api/user/`
+* [TodoList By ID] : `GET /api/v1/todoList/{id}`
+* [TodoList GET ALL] : `GET /api/v1/todoList/`
+* [TodoList edit]: `PUT /api/v1/todoList/edit/`
+* [TodoList  Delete By ID] : `DELETE /api/v1/todoList/{id}`
+
 
 ### Account related
 
