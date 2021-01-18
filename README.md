@@ -9,6 +9,14 @@ so that each user has specific control over the todolist
 * For Email Notfication used SMTP service from Mailtrap.io.
 * Three type of Priosity can be set to task URGENT(1) , NORMAL(0), INDEFINATE(-1);
 
+## IDEA
+* User will first sign Up or Sigin from a device
+* If user is new Send a verfication mail
+        * Else Check in database for User and send JWT
+ * For Creating Editing Todo each Request must have the bearer Token.
+ * After Certain Time A new Token is sent on expiration of Current Token.
+ 
+
 ## Open Endpoints
 
 Open endpoints require no Authentication.
