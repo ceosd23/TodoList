@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.GenerationType.IDENTITY;
 
 
 @Data
@@ -21,7 +22,7 @@ import static javax.persistence.FetchType.LAZY;
 public class ToDoList
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name="listId")
     private Long listId;
 

@@ -36,16 +36,19 @@ public class UserAuth {
     private final RefreshTokenService refreshTokenService;
     @Transactional
     public String signup(RegisterRequest registerRequest) throws Exception {
-        if(userRepository.findByUsername(registerRequest.getUsername()).isPresent()) {
-            return "UserName already Present";
-        }
-        if(userRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
-            return "Email already Used by another user";
-        }
+//        if(userRepository.findByUsername(registerRequest.getUsername()).isPresent()) {
+//            return "UserName already Present";
+//        }
+//        if(userRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
+//            return "Email already Used by another user";
+//        }
         User user= new User();
         user.setUsername(registerRequest.getUsername());
+        System.out.println(registerRequest.getUsername());
         user.setEmail(registerRequest.getEmail());
+        System.out.println(registerRequest.getEmail());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        System.out.println(registerRequest.getPassword());
         user.setEnabled(false);
         userRepository.save(user);
         String token= generateVerificationToken(user);

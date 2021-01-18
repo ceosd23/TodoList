@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.UUID;
 
 import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
 @Entity
@@ -20,7 +21,7 @@ import static javax.persistence.FetchType.LAZY;
 public class ToDo
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name="todoId")
     private Long todoId;
     @NotEmpty

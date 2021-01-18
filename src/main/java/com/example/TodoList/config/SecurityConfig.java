@@ -3,6 +3,7 @@ package com.example.TodoList.config;
 
 import com.example.TodoList.security.JwtAuthenticationFilter;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     {
         httpSecurity.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/v1/***")
+                .antMatchers("/api/v1/auth/*******")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
