@@ -1,7 +1,7 @@
 # TodoList
 The application is built Using Spring Framework and \
 for database Postgres SQL is used.\
-###Assumtion
+### Assumtion
  * The todolist api can be used to feed Resource to any
 frontend service and as such Token based authenctication is used
 so that each user has specific control over the todolist
