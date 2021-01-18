@@ -15,7 +15,7 @@ so that each user has specific control over the todolist
         * Else Check in database for User and send JWT
  * For Creating Editing Todo each Request must have the bearer Token.
  * After Certain Time A new Token is sent on expiration of Current Token.
- ![ScreenShot](Screenshot1.png)
+ ![ScreenShot](https://github.com/ceosd23/TodoList/blob/master/ScreenShot1.png)
 
 ## Open Endpoints
 
